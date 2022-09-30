@@ -7,8 +7,8 @@ import java.util.Scanner;
 /**
  * Testing for ScannerTest class.
  *
- * @author your name here
- * @version 2022-01-09
+ * @author Kelli Knipe
+ * @version 2022-09-21
  */
 public class Main {
 

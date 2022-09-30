@@ -5,11 +5,10 @@ import java.util.Scanner;
 /**
  * Class to demonstrate the use of Scanner with a keyboard and File objects.
  *
- * @author your name here
- * @version 2022-01-08
+ * @author Kelli Knipe
+ * @version 2022-09-21
  */
 public class ScannerTest {
-
     /**
      * Count lines in the scanned file.
      *
@@ -18,9 +17,10 @@ public class ScannerTest {
      */
     public static int countLines(final Scanner source) {
 	int count = 0;
-
-	// your code here
-
+	while (source.hasNextLine()) {
+	    count++;
+	    source.nextLine();
+	}
 	return count;
     }
 
@@ -32,23 +32,33 @@ public class ScannerTest {
      */
     public static int countTokens(final Scanner source) {
 	int tokens = 0;
-
-	// your code here
-
+	while (source.hasNext()) {
+	    tokens++;
+	    source.next();
+	}
 	return tokens;
     }
 
     /**
      * Ask for and total integers from the keyboard.
      *
-     * @param source Scanner to process
+     * @param keyboard Scanner to process
      * @return total of positive integers entered from keyboard
      */
     public static int readNumbers(final Scanner keyboard) {
 	int total = 0;
-
-	// your code here
-
+	String check = "";
+	while (!check.equals("q")) {
+	    if (!keyboard.hasNextInt()) {
+		check = keyboard.nextLine();
+		if (!check.equals("")) {
+		    System.out.println("'" + check + "' is not an integer");
+		}
+	    }
+	    else {
+		total += keyboard.nextInt();
+	    }
+	}
 	return total;
     }
 
