@@ -58,14 +58,23 @@ public class Cipher {
      * @return the enciphered string in all upper-case
      */
     public static String substitute(final String s, final String ciphertext) {
+	String cipheredText = "";
 	ciphertext.toUpperCase();
 	int i = 0;
 	int sLen = s.length();
 	while (i < sLen) {
 	    char oldChar = s.charAt(i);
-	    
+	    String newSChar = "" + oldChar;
+	    newSChar.toUpperCase();
+	    if (ciphertext.contains(newSChar) & ALPHA.contains(newSChar)) {
+		    int j = ALPHA.indexOf(newSChar);
+		    char k = ciphertext.charAt(j);
+		    cipheredText = cipheredText + k;
+	    } else {
+		cipheredText = cipheredText + newSChar;
+	    }
+	    i++;
 	}
 	return null;
     }
-
 }

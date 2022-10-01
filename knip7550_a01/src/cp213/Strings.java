@@ -7,6 +7,7 @@ package cp213;
 public class Strings {
     // Constants
     public static final String VOWELS = "aeiouAEIOU";
+    public static final String ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     /**
      * Determines if string is a "palindrome": a word, verse, or sentence (such as
@@ -17,9 +18,9 @@ public class Strings {
      * @return true if string is a palindrome, false otherwise
      */
     public static boolean isPalindrome(final String string) {
-
-	// your code here
-
+	boolean answer = true;
+	int i = 0;
+	
 	return false;
     }
 

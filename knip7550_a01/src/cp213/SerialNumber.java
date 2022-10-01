@@ -9,6 +9,9 @@ import java.util.Scanner;
  */
 public class SerialNumber {
 
+    // Constants
+    public static final String DIGITS = "0123456789";
+    
     /**
      * Determines if a string contains all digits.
      *
@@ -16,10 +19,18 @@ public class SerialNumber {
      * @return true if str is all digits, false otherwise.
      */
     public static boolean allDigits(final String str) {
-
-	// your code here
-
-	return false;
+	int strLen = str.length();
+	int i = 0;
+	boolean answer = true;
+	while (i < strLen) {
+	    char oldChar = str.charAt(i);
+	    String newChar = "" + oldChar;
+	    if (DIGITS.contains(newChar)) {
+		answer = false;
+	    }
+	    i++;
+	}
+	return answer;
     }
 
     /**
@@ -30,10 +41,29 @@ public class SerialNumber {
      * @return true if the serial number is valid in form, false otherwise.
      */
     public static boolean validSn(final String sn) {
-
-	// your code here
-
-	return false;
+	boolean answer = true;
+	if (sn.length() == 11) {
+	    int i = 0;
+	    while (i < 11 & answer == true) {
+		char oldChar = sn.charAt(i);
+		String newChar = "" + oldChar;
+		if (i == 0 & !newChar.contentEquals("S")) {
+		    answer = false;
+		} else if (i == 1 & !newChar.contentEquals("N")) {
+		    answer = false;
+		} else if (i == 2 & !newChar.contentEquals("/")) {
+		    answer = false;
+		} else if (i == 7 & !newChar.contentEquals("-")) {
+		    answer = false;
+		} else if (!DIGITS.contains(newChar)) {
+		    answer = false;
+		}
+		i++;
+	    }
+	} else {
+	    answer = false;
+	}
+	return answer;
     }
 
     /**
@@ -45,9 +75,7 @@ public class SerialNumber {
      * @param badSns  a file already open for writing
      */
     public static void validSnFile(final Scanner fileIn, final PrintStream goodSns, final PrintStream badSns) {
-
-	// your code here
-
+	
 	return;
     }
 

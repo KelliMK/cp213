@@ -16,10 +16,15 @@ public class Numbers {
      *         v1 and v2 are an equal distance from target
      */
     public static double closest(final double target, final double v1, final double v2) {
-
-	// your code here
-
-	return 0.0;
+	double v1Dif = Math.abs(target - v1);
+	double v2Dif = Math.abs(target - v2);
+	double closer = 0;
+	if (v2Dif < v1Dif) {
+	    closer = v2Dif;
+	} else {
+	    closer = v1Dif;
+	}
+	return closer;
     }
 
     /**
@@ -31,9 +36,7 @@ public class Numbers {
      * @return true if n is prime, false otherwise
      */
     public static boolean isPrime(final int n) {
-
-	// your code here
-
+	
 	return false;
     }
 
@@ -47,9 +50,13 @@ public class Numbers {
      * @return sum of partial harmonic series from 1 to n
      */
     public static double sumPartialHarmonic(final int n) {
-
-	// your code here
-
+	double harmonicAnswer = 0.0;
+	int i = 1;
+	if (n > 0) {
+	    while (i <= n) {
+		harmonicAnswer = harmonicAnswer + (1.0/i);
+	    }
+	}
 	return 0.0;
     }
 
