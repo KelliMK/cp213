@@ -7,7 +7,6 @@ package cp213;
 public class Strings {
     // Constants
     public static final String VOWELS = "aeiouAEIOU";
-    public static final String ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     /**
      * Determines if string is a "palindrome": a word, verse, or sentence (such as
@@ -18,10 +17,31 @@ public class Strings {
      * @return true if string is a palindrome, false otherwise
      */
     public static boolean isPalindrome(final String string) {
-	boolean answer = true;
-	int i = 0;
-	
-	return false;
+    	String alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    	boolean answer = true;
+    	int i = 0;
+    	String evalStr = "";
+    	while (i < string.length()) {
+    		char oldChar = string.charAt(i);
+    		String newChar = "" + oldChar;
+    		if (alpha.contains(newChar.toUpperCase())) {
+    			evalStr = evalStr + newChar.toUpperCase();
+    		}
+    		i++;
+    	}
+    	int evalLen = evalStr.length();
+    	i = 0;
+    	while (i < evalLen) {
+    		char charA = evalStr.charAt(i);
+    		String strA = "" + charA;
+    		char charB = evalStr.charAt(evalLen - (1 + i));
+    		String strB = "" + charB;
+    		if (!strA.equalsIgnoreCase(strB)) {
+    			answer = false;
+    		}
+    		i++;
+    	}
+    	return answer;
     }
 
     /**
@@ -33,10 +53,27 @@ public class Strings {
      * @return true if name is a valid Java variable name, false otherwise
      */
     public static boolean isValid(final String name) {
-
-	// your code here
-
-	return false;
+    	boolean answer = true;
+    	String alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    	String digits = "0123456789";
+    	int nameLen = name.length();
+    	char oldChar = name.charAt(0);
+    	String newChar = "" + oldChar;
+    	newChar.toUpperCase();
+    	if (alpha.contains(newChar.toUpperCase()) || newChar.equalsIgnoreCase("_")) {
+    		int i = 1;
+    		while (i < nameLen) {
+    			oldChar = name.charAt(i);
+    			newChar = "" + oldChar;
+    			if (!alpha.contains(newChar.toUpperCase()) & !digits.contains(newChar) & !newChar.equals("_")) {
+    				answer = false;
+    			}
+    			i++;
+    		}
+    	} else {
+    		answer = false;
+    	}
+    	return answer;
     }
 
     /**
@@ -55,10 +92,39 @@ public class Strings {
      * @return the Pig Latin version of word
      */
     public static String pigLatin(String word) {
-
-	// your code here
-
-	return null;
+    	String newWord = "";
+    	String exWord = "";
+    	char oldChar = word.charAt(0);
+    	boolean upperCheck = Character.isUpperCase(oldChar);
+    	String newChar = "" + oldChar;
+    	if (VOWELS.contains(newChar)) {
+    		newWord = word + "way";
+    	} else {
+    		newWord = newChar;
+    		int wordLen = word.length();
+    		int i = 1;
+    		boolean trigger = false;
+    		while (i < wordLen) {
+    			oldChar = word.charAt(i);
+    			newChar = "" + oldChar;
+    			if (VOWELS.contains(newChar) || newChar.equalsIgnoreCase("y")) {
+    				trigger = true;
+    			} else if (!trigger) {
+    				newChar.toLowerCase();
+    				newWord = newWord + newChar;
+    			}
+    			if (trigger) {
+    				exWord = word.substring(i);
+    				newWord = exWord + newWord + "ay";
+    				i = wordLen;
+    			}
+    			++i;
+    		}
+    	}
+    	if (upperCheck) {
+    		newWord = newWord.substring(0,1).toUpperCase() + newWord.substring(1).toLowerCase();
+    	}
+    	return newWord;
     }
 
 }

@@ -1,8 +1,8 @@
 package cp213;
 
 /**
- * @author Your name and id here
- * @version 2022-09-23
+ * @author Kelli M Knipe
+ * @version 2022-09-30
  */
 public class LeapYear {
 

@@ -20,23 +20,23 @@ public class Cipher {
      * @return the enciphered string in all upper-case
      */
     public static String shift(final String s, final int n) {
-	int newN = n % 26;
-	int sLen = s.length();
-	String cipherS = "";
-	int i = 0;
-	while (i < sLen) {
-	    char oldChar = s.charAt(i);
-	    String newSChar = "" + oldChar;
-	    newSChar.toUpperCase();
-	    if (ALPHA.contains(newSChar)) {
-		int newIndex = ALPHA.indexOf(newSChar) + newN;
-		newIndex = newIndex % 26;
-		cipherS = cipherS + ALPHA.charAt(newIndex);
-	    } else {
-		cipherS = cipherS + newSChar;
-	    }
-	    i++;
-	}
+    	int newN = n % 26;
+    	int sLen = s.length();
+    	String cipherS = "";
+    	int i = 0;
+    	while (i < sLen) {
+    		char oldChar = s.charAt(i);
+    		String newSChar = "" + oldChar;
+    		newSChar.toUpperCase();
+    		if (ALPHA.contains(newSChar)) {
+    			int newIndex = ALPHA.indexOf(newSChar) + newN;
+    			newIndex = newIndex % 26;
+    			cipherS = cipherS + ALPHA.charAt(newIndex);
+    		} else {
+    			cipherS = cipherS + newSChar;
+    		}
+    		i++;
+    	}
 	return cipherS;
     }
 
@@ -75,6 +75,6 @@ public class Cipher {
 	    }
 	    i++;
 	}
-	return null;
+	return cipheredText;
     }
 }

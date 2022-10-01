@@ -80,7 +80,7 @@ public class A01Main {
 	System.out.println("Testing isValid");
 	System.out.println(LINE);
 
-	Object[][] testData = { { "a", true }, { "_a", true }, { "1a", false } };
+	Object[][] testData = { { "aaAAAAAAAAAAAA", true }, { "_a", true }, { "a-", false } };
 
 	for (Object[] data : testData) {
 	    String string = (String) data[0];
@@ -140,7 +140,7 @@ public class A01Main {
 	System.out.println("Testing isPrime");
 	System.out.println(LINE);
 
-	Object[][] testData = { { 7, true }, { 5, true }, { 9, false } };
+	Object[][] testData = { { 17, true }, { 89, true }, { 9, false }, { 999, false } };
 
 	for (Object[] data : testData) {
 	    int n = (int) data[0];
@@ -178,7 +178,7 @@ public class A01Main {
 	System.out.println("Testing allDigits");
 	System.out.println(LINE);
 
-	Object[][] testData = { { "a", false }, { "123", true }, { "12.3", false } };
+	Object[][] testData = { { "aaaaaaaaaaa", false }, { "12389420", true }, { "1230!", false } };
 
 	for (Object[] data : testData) {
 	    String string = (String) data[0];
@@ -197,7 +197,7 @@ public class A01Main {
 	System.out.println("Testing validSn");
 	System.out.println(LINE);
 
-	Object[][] testData = { { "SN/1234-567", true }, { "SN/1234567", false }, { "SN/123-4567", false } };
+	Object[][] testData = { { "sn/1234-567", false }, { "SN/1234567", false }, { "SN/123-4567", false },  { "SN/0245-587", true }};
 
 	for (Object[] data : testData) {
 	    String string = (String) data[0];
@@ -216,7 +216,7 @@ public class A01Main {
 	System.out.println("Testing shift");
 	System.out.println(LINE);
 
-	Object[][] testData = { { "ABC", 0, "ABC" }, { "ABC", 3, "DEF" }, { "ABC", 30, "EFG" } };
+	Object[][] testData = { { "ABC", 0, "ABC" }, { "ABC", 25, "ZAB" }, { "ABC", 30, "EFG" } };
 
 	for (Object[] data : testData) {
 	    String string = (String) data[0];
@@ -236,7 +236,7 @@ public class A01Main {
 	System.out.println("Testing substitute");
 	System.out.println(LINE);
 
-	Object[][] testData = { { "ABC", "AVI" }, { "XYZ", "XYD" } };
+	Object[][] testData = { { "ABC", "AVI" }, { "XBZ", "XVD" }, {"DO NOT LEAVE!", "BJ HJQ FRATR!"} };
 
 	for (Object[] data : testData) {
 	    String string = (String) data[0];

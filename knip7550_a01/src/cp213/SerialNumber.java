@@ -8,10 +8,6 @@ import java.util.Scanner;
  * @version 2022-09-23
  */
 public class SerialNumber {
-
-    // Constants
-    public static final String DIGITS = "0123456789";
-    
     /**
      * Determines if a string contains all digits.
      *
@@ -20,13 +16,14 @@ public class SerialNumber {
      */
     public static boolean allDigits(final String str) {
 	int strLen = str.length();
+	String digits = "0123456789";
 	int i = 0;
 	boolean answer = true;
 	while (i < strLen) {
 	    char oldChar = str.charAt(i);
 	    String newChar = "" + oldChar;
-	    if (DIGITS.contains(newChar)) {
-		answer = false;
+	    if (!digits.contains(newChar)) {
+	    	answer = false;
 	    }
 	    i++;
 	}
@@ -42,23 +39,26 @@ public class SerialNumber {
      */
     public static boolean validSn(final String sn) {
 	boolean answer = true;
+	String digits = "0123456789";
 	if (sn.length() == 11) {
 	    int i = 0;
 	    while (i < 11 & answer == true) {
-		char oldChar = sn.charAt(i);
-		String newChar = "" + oldChar;
-		if (i == 0 & !newChar.contentEquals("S")) {
-		    answer = false;
-		} else if (i == 1 & !newChar.contentEquals("N")) {
-		    answer = false;
-		} else if (i == 2 & !newChar.contentEquals("/")) {
-		    answer = false;
-		} else if (i == 7 & !newChar.contentEquals("-")) {
-		    answer = false;
-		} else if (!DIGITS.contains(newChar)) {
-		    answer = false;
-		}
-		i++;
+	    	char oldChar = sn.charAt(i);
+	    	String newChar = "" + oldChar;
+	    	if (i == 0 & newChar.equals("S")) {
+	    		answer = true;
+	    	} else if (i == 1 & newChar.equals("N")) {
+	    		answer = true;
+	    	} else if (i == 2 & newChar.equalsIgnoreCase("/")) {
+	    		answer = true;
+	    	} else if (i == 7 & newChar.equalsIgnoreCase("-")) {
+	    		answer = true;
+	    	} else if (digits.contains(newChar)) {
+	    		answer = true;
+	    	} else {
+	    		answer = false;
+	    	}
+	    	++i;
 	    }
 	} else {
 	    answer = false;
@@ -75,8 +75,18 @@ public class SerialNumber {
      * @param badSns  a file already open for writing
      */
     public static void validSnFile(final Scanner fileIn, final PrintStream goodSns, final PrintStream badSns) {
-	
-	return;
+    	while (fileIn.hasNext()) {
+    		String newSN = fileIn.next();
+    		boolean isValid = validSn(newSN);
+    		if (isValid) {
+    			goodSns.append(newSN);
+    			goodSns.append("_");
+    		} else {
+    			badSns.append(newSN);
+    			badSns.append("_");
+    		}
+    	}
+    	return;
     }
 
 }
