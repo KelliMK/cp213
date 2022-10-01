@@ -24,10 +24,15 @@ public class LeapYear {
      * @return true if year is a leap year, false otherwise.
      */
     public static boolean isLeapYear(final int year) {
-
-	// your code here
-
-	return false;
+	boolean answer = false;
+	if (year % 4 == 0) {
+	    if (year % 100 == 0 & year % 400 != 0) {
+		answer = false;
+	    } else {
+		answer = true;
+	    }
+	}
+	return answer;
     }
 
 }
