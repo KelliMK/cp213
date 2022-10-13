@@ -11,10 +11,11 @@ import java.time.LocalDate;
 public class Student implements Comparable<Student> {
 
     // Attributes
+	private int id = 0;
+	private String surname = "";
+	private String forename = "";
     private LocalDate birthDate = null;
-    private String forename = "";
-    private int id = 0;
-    private String surname = "";
+    
 
     /**
      * Instantiates a Student object.
@@ -24,11 +25,12 @@ public class Student implements Comparable<Student> {
      * @param forename  name of forename
      * @param birthDate birthDate in 'YYYY-MM-DD' format
      */
-    public Student( /* parameters here */ ) {
-
-	// assign attributes here
-
-	return;
+    public Student(int id, String surname, String forename, LocalDate birthDate) {
+    	this.id = id;
+    	this.surname = surname;
+    	this.forename = forename;
+    	this.birthDate = birthDate;
+    	return;
     }
 
     /*
@@ -38,11 +40,8 @@ public class Student implements Comparable<Student> {
      */
     @Override
     public String toString() {
-	String string = "";
-
-	// your code here
-
-	return string;
+    	String string = "Name:      " + surname + ", " + forename + "\nID:        " + id + "\nBirthdate: " + birthDate;
+    	return string;
     }
 
     /*
@@ -52,15 +51,84 @@ public class Student implements Comparable<Student> {
      */
     @Override
     public int compareTo(final Student target) {
-	int result = 0;
-
-	// your code here
-
-	return result;
+    	int result = 0;
+    	if (surname.compareToIgnoreCase(target.surname) < 0) {
+    		result = -1;
+    	} else if (surname.compareToIgnoreCase(target.surname) > 0) {
+    		result = 1;
+    	} else {
+    		if (forename.compareToIgnoreCase(target.forename) < 0) {
+    			result = -1;
+    		} else if (forename.compareToIgnoreCase(target.forename) > 0) {
+    			result = 1;
+    		} else {
+    			if (id < target.id) {
+    				result = -1;
+    			} else if (id > target.id) {
+    				result = 1;
+    			}
+    		}
+    	}
+    	return result;
     }
 
-
-    // getters and setters defined here
-
-
+    /**
+     * @return birthDate The student's birth date
+     */
+    public LocalDate getBirthDate() {
+    	return birthDate;
+    }
+    
+    /**
+     * @param newDate 	The new birth date for the student
+     */
+    public void setBirthDate(LocalDate newDate) {
+    	birthDate = newDate;
+    	return;
+    }
+    
+    /**
+     * @return forename 	Student's first name
+     */
+    public String getForename() {
+    	return forename;
+    }
+    
+    /**
+     * @param newForename	Student's new first name
+     */
+    public void setForename(String newForename) {
+    	forename = newForename;
+    	return;
+    }
+    
+    /**
+     * @return Surname 	Student's first name
+     */
+    public String getSurname() {
+    	return surname;
+    }
+    
+    /**
+     * @param newSurname	Student's new last name
+     */
+    public void setSurname(String newSurname) {
+    	surname = newSurname;
+    	return;
+    }
+    
+    /**
+     * @return id	Student's ID number
+     */
+    public int getId() {
+    	return id;
+    }
+    
+    /**
+     * @param newID		New student ID
+     */
+    public void setId(int newID) {
+    	id = newID;
+    	return;
+    }
 }

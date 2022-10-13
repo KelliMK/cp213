@@ -21,6 +21,7 @@
 		<item key="WizardZipFileResourceExportPage1.STORE_CREATE_STRUCTURE_ID" value="true"/>
 		<item key="WizardZipFileResourceExportPage1.STORE_COMPRESS_CONTENTS_ID" value="true"/>
 		<list key="WizardZipFileResourceExportPage1.STORE_DESTINATION_NAMES_ID">
+			<item value="C:\Users\Kelli &amp; Rose\Documents\Classes\cp213_Object_Oriented_Programming\knip7550_a02.zip"/>
 			<item value="C:\Users\Kelli &amp; Rose\Documents\Classes\cp213_Object_Oriented_Programming\knip7550_a01.zip"/>
 			<item value="E:\Classes\CP213\knip7550_a01.zip"/>
 		</list>
