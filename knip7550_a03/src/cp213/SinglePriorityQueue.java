@@ -60,7 +60,16 @@ public class SinglePriorityQueue<T extends Comparable<T>> extends SingleLink<T> 
 	 */
 	public void insert(final T datum) {
 		if (this.front.equals(null)) {
+			this.front.setNext(datum);
+			this.front = this.front.getNext();
+			this.rear = this.front;
+			this.length = 1;
+		} else {
+			SingleNode<T> current = this.front;
 			
+			while () {
+				
+			}
 		}
 		return;
 	}

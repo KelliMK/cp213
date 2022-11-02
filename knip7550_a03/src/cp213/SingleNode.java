@@ -56,9 +56,9 @@ public final class SingleNode<T> {
     /**
      * Links this node to the next node.
      *
-     * @param next The new node to link to.
+     * @param datum2 The new node to link to.
      */
-    public void setNext(final SingleNode<T> next) {
-	this.next = next;
+    public void setNext(final T datum2) {
+	this.next = datum2;
     }
 }
