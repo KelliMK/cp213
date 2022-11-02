@@ -31,9 +31,11 @@ public class SinglePriorityQueue<T extends Comparable<T>> extends SingleLink<T> 
 	 */
 	public void combine(final SinglePriorityQueue<T> left, final SinglePriorityQueue<T> right) {
 		assert this.front == null : "May combine into an empty Priority Queue only";
-
-		// your code here
-
+		while (!left.front.equals(null) || !right.front.equals(null)) {
+			if (!left.front.equals(null)) {
+				
+			}
+		}
 		return;
 	}
 
@@ -57,9 +59,9 @@ public class SinglePriorityQueue<T extends Comparable<T>> extends SingleLink<T> 
 	 * @param datum value to insert in sorted order in priority queue.
 	 */
 	public void insert(final T datum) {
-
-		// your code here
-
+		if (this.front.equals(null)) {
+			
+		}
 		return;
 	}
 
