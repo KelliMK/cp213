@@ -63,14 +63,17 @@ public class SinglePriorityQueue<T extends Comparable<T>> extends SingleLink<T> 
 			this.front.setNext(datum);
 			this.front = this.front.getNext();
 			this.rear = this.front;
-			this.length = 1;
 		} else {
 			SingleNode<T> current = this.front;
-			
-			while () {
-				
+			while (current.getNext().getDatum().compareTo(datum) < 1) {
+				current = current.getNext();
 			}
+			SingleNode<T> newNext = current.getNext();
+			current.setNext(datum);
+			current = current.getNext();
+			current.setNext(newNext.getDatum());
 		}
+		this.length += 1;
 		return;
 	}
 
@@ -81,10 +84,10 @@ public class SinglePriorityQueue<T extends Comparable<T>> extends SingleLink<T> 
 	 * @return the highest priority value currently in the SinglePriorityQueue.
 	 */
 	public T remove() {
-
-		// your code here
-
-		return null;
+		T result = this.front.getDatum();
+		this.front = this.front.getNext();
+		this.length -= 1;
+		return result;
 	}
 
 	/**
