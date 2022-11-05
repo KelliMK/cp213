@@ -30,9 +30,18 @@ public class SingleQueue<T> extends SingleLink<T> {
 	 * @param right The second SingleQueue to extract nodes from.
 	 */
 	public void combine(final SingleQueue<T> left, final SingleQueue<T> right) {
-
-		// your code here
-
+		while (!left.isEmpty() || !right.isEmpty()) {
+			if (!left.isEmpty()) {
+				this.moveFrontToFront(left);
+				this.length += 1;
+				left.length -= 1;
+			}
+			if (!right.isEmpty()) {
+				this.moveFrontToFront(right);
+				this.length += 1;
+				right.length -= 1;
+			}
+		}
 		return;
 	}
 
@@ -42,9 +51,15 @@ public class SingleQueue<T> extends SingleLink<T> {
 	 * @param datum The value to added to the rear of the queue.
 	 */
 	public void insert(final T datum) {
-
-		// your code here
-
+		SingleNode<T> newData = new SingleNode<T>(datum, null);
+		if (this.front.equals(null)) {
+			this.front = this.rear = newData;
+			this.length = 1;
+		} else {
+			this.rear.setNext(newData);
+			this.rear = this.rear.getNext();
+			this.length += 1;
+		}
 		return;
 	}
 
@@ -56,10 +71,10 @@ public class SingleQueue<T> extends SingleLink<T> {
 	 * @return The value at the front of the queue.
 	 */
 	public T remove() {
-
-		// your code here
-
-		return null;
+		T result = this.front.getDatum();
+		this.front = this.front.getNext();
+		this.length -= 1;
+		return result;
 	}
 
 	/**

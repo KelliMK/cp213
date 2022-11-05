@@ -31,12 +31,48 @@ public class SinglePriorityQueue<T extends Comparable<T>> extends SingleLink<T> 
 	 */
 	public void combine(final SinglePriorityQueue<T> left, final SinglePriorityQueue<T> right) {
 		assert this.front == null : "May combine into an empty Priority Queue only";
+		if (this.front == null & left.front != null) {
+			this.front = left.front;
+			left.front = left.front.getNext();
+			this.length += 1;
+			left.length -= 1;
+		} else {
+			this.front = right.front;
+			this.rear = right.rear;
+			this.length = right.length;
+			right.front = right.rear = null;
+			right.length = 0;
+		}
 		while (!left.front.equals(null) || !right.front.equals(null)) {
+			SingleNode<T> current = this.front;
+			SingleNode<T> previous = current;
+			if (!right.front.equals(null)) {
+				while (!current.equals(null) & current.getDatum().compareTo(right.front.getDatum()) <= 0) {
+					previous = current;
+					current = current.getNext();
+				}
+				previous.setNext(right.front);
+				right.front = right.front.getNext();
+				SingleNode<T> newInsert = previous.getNext();
+				newInsert.setNext(current);
+				right.length -= 1;
+				this.length += 1;
+			}
+			current = this.front;
+			previous = current;
 			if (!left.front.equals(null)) {
-				
+				while (!current.equals(null) & current.getDatum().compareTo(left.front.getDatum()) <= 0) {
+					previous = current;
+					current = current.getNext();
+				}
+				previous.setNext(left.front);
+				right.front = left.front.getNext();
+				SingleNode<T> newInsert = previous.getNext();
+				newInsert.setNext(current);
+				left.length -= 1;
+				this.length += 1;
 			}
 		}
-		return;
 	}
 
 	/**
@@ -59,19 +95,20 @@ public class SinglePriorityQueue<T extends Comparable<T>> extends SingleLink<T> 
 	 * @param datum value to insert in sorted order in priority queue.
 	 */
 	public void insert(final T datum) {
+		SingleNode<T> newNode = new SingleNode<T>(datum, null);
 		if (this.front.equals(null)) {
-			this.front.setNext(datum);
+			this.front.setNext(newNode);
 			this.front = this.front.getNext();
 			this.rear = this.front;
 		} else {
 			SingleNode<T> current = this.front;
-			while (current.getNext().getDatum().compareTo(datum) < 1) {
+			while (current.getNext().getDatum().compareTo(datum) <= 0) {
 				current = current.getNext();
 			}
 			SingleNode<T> newNext = current.getNext();
-			current.setNext(datum);
+			current.setNext(newNode);
 			current = current.getNext();
-			current.setNext(newNext.getDatum());
+			current.setNext(newNext);
 		}
 		this.length += 1;
 		return;
@@ -107,9 +144,24 @@ public class SinglePriorityQueue<T extends Comparable<T>> extends SingleLink<T> 
 	 *               all values with priority lower than or equal to key.
 	 */
 	public void splitByKey(final T key, final SinglePriorityQueue<T> higher, final SinglePriorityQueue<T> lower) {
-
-		// your code here
-
+		if (!this.front.equals(null)) {
+			SingleNode<T> current = this.front;
+			SingleNode<T> previous = current;
+			while (!current.equals(null) & current.getDatum().compareTo(key) <= 0) {
+				higher.length += 1;
+				previous = current;
+				current = current.getNext();
+			}
+			higher.front = this.front;
+			higher.rear = previous;
+			if (!previous.equals(this.rear)) {
+				lower.front = current;
+				lower.rear = this.rear;
+				lower.length = this.getLength() - higher.getLength();
+			}
+			this.front = this.rear = null;
+			this.length = 0;
+		}
 		return;
 	}
 }
