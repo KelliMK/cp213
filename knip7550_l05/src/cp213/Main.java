@@ -19,10 +19,10 @@ public class Main {
 	public static Professor prof1 = new Professor("Hakim", "Abdul", "History");
 	public static Person prof2 = new Professor("Rodrigues", "Estevan", "Philosophy");
 	// Uncomment the following after defining CAS and IA
-	// public static IA ia1 = new IA("Chin", "Li-meng", "9857478", "CP213");
-	// private static Person iaPerson1 = new IA("Rodrigues", "Estevan", "6723564",
-	// "CP363");
-	// public static CAS cas1 = new CAS("McGarrity", "Ivan", "English", "201401");
+	public static IA ia1 = new IA("Chin", "Li-meng", "9857478", "CP213");
+	private static Person iaPerson1 = new IA("Rodrigues", "Estevan", "6723564",
+	"CP363");
+	public static CAS cas1 = new CAS("McGarrity", "Ivan", "English", "201401");
 
 	/**
 	 * Test code.
@@ -101,6 +101,9 @@ public class Main {
 		set.add(student1);
 		set.add(prof1);
 		set.add(prof2);
+		set.add(ia1);
+		set.add(iaPerson1);
+		set.add(cas1);
 		// add CAS and IA objects here
 
 		System.out.println(TASK_LINE);

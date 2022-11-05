@@ -3,8 +3,8 @@ package cp213;
 /**
  * Inherited class in simple example of inheritance / polymorphism.
  *
- * @author David Brown
- * @version 2022-02-25
+ * @author Kelli Knipe
+ * @version 2022-11-04
  */
 public class Professor extends Person {
 

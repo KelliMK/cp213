@@ -3,8 +3,8 @@ package cp213;
 /**
  * Base class in simple example of inheritance / polymorphism.
  *
- * @author David Brown
- * @version 2022-02-25
+ * @author Kelli Knipe 211827550
+ * @version 2022-11-04
  */
 public class Person implements Comparable<Person> {
 
