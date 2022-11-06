@@ -19,6 +19,7 @@
 	<section name="JavaElementSearchActions">
 	</section>
 	<section name="OptionalMessageDialog.hide.">
+		<item key="configure_problem_severity_dialog_id" value="false"/>
 	</section>
 	<section name="javadoc">
 		<item key="javadoc_command_history" value="C:\Program Files\Java\jdk-18.0.2.1\bin\javadoc.exe"/>
@@ -37,8 +38,8 @@
 		<item key="nonavbar" value="false"/>
 		<item key="openinbrowser" value="false"/>
 		<item key="source" value="18"/>
-		<item key="antpath" value="E:\Classes\CP213\knip7550_a02\javadoc.xml"/>
-		<item key="destdir" value="E:\Classes\CP213\knip7550_a02\doc"/>
+		<item key="antpath" value="E:\Classes\CP213\knip7550_a03\javadoc.xml"/>
+		<item key="destdir" value="E:\Classes\CP213\knip7550_a03\doc"/>
 		<section name="projects">
 			<section name="knip7550_a01">
 				<item key="href" value=""/>
@@ -49,6 +50,11 @@
 				<item key="href" value=""/>
 				<item key="destdir" value="E:\Classes\CP213\knip7550_a02\doc"/>
 				<item key="antpath" value="E:\Classes\CP213\knip7550_a02\javadoc.xml"/>
+			</section>
+			<section name="knip7550_a03">
+				<item key="href" value=""/>
+				<item key="destdir" value="E:\Classes\CP213\knip7550_a03\doc"/>
+				<item key="antpath" value="E:\Classes\CP213\knip7550_a03\javadoc.xml"/>
 			</section>
 			<section name="Random Testing">
 				<item key="href" value=""/>
@@ -69,6 +75,16 @@
 				<item key="href" value=""/>
 				<item key="destdir" value="E:\Classes\CP213\knip7550_l03\doc"/>
 				<item key="antpath" value="E:\Classes\CP213\knip7550_l03\javadoc.xml"/>
+			</section>
+			<section name="knip7550_l04">
+				<item key="href" value=""/>
+				<item key="destdir" value="E:\Classes\CP213\knip7550_l04\doc"/>
+				<item key="antpath" value="E:\Classes\CP213\knip7550_l04\javadoc.xml"/>
+			</section>
+			<section name="knip7550_l05">
+				<item key="href" value=""/>
+				<item key="destdir" value="E:\Classes\CP213\knip7550_l05\doc"/>
+				<item key="antpath" value="E:\Classes\CP213\knip7550_l05\javadoc.xml"/>
 			</section>
 		</section>
 	</section>

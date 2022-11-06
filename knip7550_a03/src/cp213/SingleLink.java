@@ -97,7 +97,11 @@ public abstract class SingleLink<T> implements Iterable<T> {
 	 */
 	protected void append(final SingleLink<T> source) {
 		assert source.front != null : "Cannot append an empty source";
-		this.rear.setNext(source.front);
+		if (this.length == 0) {
+			this.front = source.front;
+		} else {
+			this.rear.setNext(source.front);
+		}
 		this.rear = source.rear;
 		this.length += source.length;
 		source.length = 0;
@@ -116,12 +120,16 @@ public abstract class SingleLink<T> implements Iterable<T> {
 	 */
 	protected void moveFrontToFront(final SingleLink<T> source) {
 		assert source.front != null : "Cannot move nodes from an empty source";
-		source.rear.setNext(this.front);
-		int oldLen = this.length;
-		this.length += source.length;
-		source.length += oldLen;
+		SingleNode<T> dummy = this.front;
 		this.front = source.front;
-		source.rear = this.rear;
+		if (source.length > 1) {
+			source.front = source.front.getNext();
+		} else {
+			source.front = null;
+		}
+		this.front.setNext(dummy);
+		this.length++;
+		source.length--;
 		return;
 	}
 
@@ -135,12 +143,17 @@ public abstract class SingleLink<T> implements Iterable<T> {
 	 */
 	protected void moveFrontToRear(final SingleLink<T> source) {
 		assert source.front != null : "Cannot move nodes from an empty source";
-		this.rear.setNext(source.front);
-		int oldLen = this.length;
-		this.length += source.length;
-		source.length += oldLen;
-		this.rear = source.rear;
-		source.front = this.front;
+		SingleNode<T> dummy = source.front.getNext();
+		if (this.length == 0) {
+			this.front = this.rear = source.front;
+		} else {
+			this.rear.setNext(source.front);
+			this.rear = this.rear.getNext();
+		}
+		this.rear.setNext(null);
+		source.front = dummy;
+		this.length++;
+		source.length--;
 		return;
 	}
 
@@ -179,6 +192,10 @@ public abstract class SingleLink<T> implements Iterable<T> {
 	 * @return The value in the front of the structure.
 	 */
 	public final T peek() {
-		return this.front.getDatum();
+		T result = null;
+		if (this.length > 0) {
+			result = this.front.getDatum();
+		}
+		return result;
 	}
 }

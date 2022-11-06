@@ -31,9 +31,14 @@ public class SingleStack<T> extends SingleLink<T> {
 	 * @param right The second SingleStack to extract nodes from.
 	 */
 	public void combine(final SingleStack<T> left, final SingleStack<T> right) {
-
-		// your code here
-
+		while (left.length > 0 || right.length > 0) {
+			if (left.length > 0) {
+				this.moveFrontToFront(left);
+			}
+			if (right.length > 0) {
+				this.moveFrontToFront(right);
+			}
+		}
 		return;
 	}
 
@@ -44,10 +49,10 @@ public class SingleStack<T> extends SingleLink<T> {
 	 * @return The value at the top of the stack.
 	 */
 	public T pop() {
-
-		// your code here
-
-		return null;
+		T result = this.front.getDatum();
+		this.front = this.front.getNext();
+		this.length--;
+		return result;
 	}
 
 	/**
@@ -56,9 +61,9 @@ public class SingleStack<T> extends SingleLink<T> {
 	 * @param datum The value to add to the top of the stack.
 	 */
 	public void push(final T datum) {
-
-		// your code here
-
+		SingleNode<T> newFront = new SingleNode<T>(datum, this.front);
+		this.front = newFront;
+		this.length++;
 		return;
 	}
 
@@ -75,9 +80,12 @@ public class SingleStack<T> extends SingleLink<T> {
 	 * @param right The second SingleStack to move nodes to.
 	 */
 	public void splitAlternate(final SingleStack<T> left, final SingleStack<T> right) {
-
-		// your code here
-
+		while (this.getLength() > 0) {
+			left.moveFrontToFront(this);
+			if (this.getLength() > 0) {
+				right.moveFrontToFront(this);
+			}
+		}
 		return;
 	}
 }

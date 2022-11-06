@@ -32,12 +32,12 @@ public class SingleQueue<T> extends SingleLink<T> {
 	public void combine(final SingleQueue<T> left, final SingleQueue<T> right) {
 		while (!left.isEmpty() || !right.isEmpty()) {
 			if (!left.isEmpty()) {
-				this.moveFrontToFront(left);
+				this.moveFrontToRear(left);;
 				this.length += 1;
 				left.length -= 1;
 			}
 			if (!right.isEmpty()) {
-				this.moveFrontToFront(right);
+				this.moveFrontToRear(right);
 				this.length += 1;
 				right.length -= 1;
 			}
@@ -52,7 +52,7 @@ public class SingleQueue<T> extends SingleLink<T> {
 	 */
 	public void insert(final T datum) {
 		SingleNode<T> newData = new SingleNode<T>(datum, null);
-		if (this.front.equals(null)) {
+		if (this.length == 0) {
 			this.front = this.rear = newData;
 			this.length = 1;
 		} else {
@@ -90,9 +90,30 @@ public class SingleQueue<T> extends SingleLink<T> {
 	 * @param right The second SingleQueue to move nodes to.
 	 */
 	public void splitAlternate(final SingleQueue<T> left, final SingleQueue<T> right) {
-
-		// your code here
-
+		SingleNode<T> current = this.front;
+		int queueLeft = this.length;
+		while (queueLeft > 0) {
+			if (left.length == 0) {
+				left.front = this.front;
+			} else {
+				left.rear.setNext(this.front);
+			}
+			left.rear = this.front;
+			left.length++;
+			this.length--;
+			this.front = this.front.getNext();
+			if (queueLeft > 0) {
+				if (right.length == 0) {
+					right.front = this.front;
+				} else {
+					right.rear.setNext(this.front);
+				}
+				right.rear = current;
+				right.length++;
+				queueLeft--;
+				current = current.getNext();
+			}
+		}
 		return;
 	}
 }
