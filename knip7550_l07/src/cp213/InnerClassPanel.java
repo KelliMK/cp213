@@ -1,5 +1,7 @@
 package cp213;
 
+import static java.awt.event.ItemEvent.SELECTED;
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -60,8 +62,19 @@ public class InnerClassPanel extends JPanel {
 		@Override
 		public void itemStateChanged(final ItemEvent e) {
 			final JCheckBox source = (JCheckBox) e.getSource();
-			// if selected add source to checkBoxesSelected
-			InnerClassPanel.this.buttonPush = source.getText();
+			final int selectStat = e.getStateChange();
+			if (selectStat == SELECTED) {
+				checkBoxesSelected.add(source.getText());
+			} else {
+				for (int i = 0; i < checkBoxesSelected.size(); i++) {
+					if (source.getText().equals(checkBoxesSelected.get(i))) {
+						checkBoxesSelected.remove(i);
+					}
+				}
+			}
+			String listString = String.join(", ", checkBoxesSelected);
+			listString = "[" + listString + "]";
+			InnerClassPanel.this.buttonPush = listString;
 			InnerClassPanel.this.label.setText(InnerClassPanel.this.buttonPush);
 			System.out.println(InnerClassPanel.this.buttonPush);
 		}
@@ -120,9 +133,12 @@ public class InnerClassPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(final ActionEvent e) {
-
-			// your code here
-
+			final JTextField source = (JTextField) e.getSource();
+			InnerClassPanel.this.textEntry = source.getText();
+			InnerClassPanel.this.label.setText(InnerClassPanel.this.textEntry);
+			System.out.println(InnerClassPanel.this.textEntry);
+			textField.selectAll();
+			textField.replaceSelection("");
 		}
 	}
 
