@@ -36,19 +36,3 @@ public class Main {
 		f.setVisible(true);
 	}
 }
-
-/*
-GUI elements
-	private final JButton button = new JButton("Push Me");
-	private final ArrayList<String> checkBoxesSelected = new ArrayList<>();
-	private final JCheckBox ketchup = new JCheckBox("Ketchup");
-	private final JLabel label = new JLabel();
-	private final JCheckBox mustard = new JCheckBox("Mustard");
-	private final JCheckBox onions = new JCheckBox("Onions");
-	private final JSlider slider = new JSlider(JSlider.HORIZONTAL, START, END, INC);
-	private final JSpinner spinner = new JSpinner(MONTH_MODEL);
-	private final ButtonGroup starGroup = new ButtonGroup();
-	private final JRadioButton starTrek = new JRadioButton("Star Trek");
-	private final JRadioButton starWars = new JRadioButton("Star Wars");
-	private final JTextField textField = new JTextField();
-*/
