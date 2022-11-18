@@ -20,6 +20,7 @@
 	</section>
 	<section name="OptionalMessageDialog.hide.">
 		<item key="configure_problem_severity_dialog_id" value="false"/>
+		<item key="org.eclipse.jdt.ui.typecomment.deprecated" value="true"/>
 	</section>
 	<section name="javadoc">
 		<item key="javadoc_command_history" value="C:\Program Files\Java\jdk-18.0.2.1\bin\javadoc.exe"/>
@@ -38,8 +39,8 @@
 		<item key="nonavbar" value="false"/>
 		<item key="openinbrowser" value="false"/>
 		<item key="source" value="18"/>
-		<item key="antpath" value="E:\Classes\CP213\knip7550_a03\javadoc.xml"/>
-		<item key="destdir" value="E:\Classes\CP213\knip7550_a03\doc"/>
+		<item key="antpath" value="E:\Classes\CP213\knip7550_l06\javadoc.xml"/>
+		<item key="destdir" value="E:\Classes\CP213\knip7550_l06\doc"/>
 		<section name="projects">
 			<section name="knip7550_a01">
 				<item key="href" value=""/>
@@ -86,6 +87,11 @@
 				<item key="destdir" value="E:\Classes\CP213\knip7550_l05\doc"/>
 				<item key="antpath" value="E:\Classes\CP213\knip7550_l05\javadoc.xml"/>
 			</section>
+			<section name="knip7550_l06">
+				<item key="href" value=""/>
+				<item key="destdir" value="E:\Classes\CP213\knip7550_l06\doc"/>
+				<item key="antpath" value="E:\Classes\CP213\knip7550_l06\javadoc.xml"/>
+			</section>
 		</section>
 	</section>
 	<section name="RefactoringWizard.preview">
@@ -95,5 +101,18 @@
 	<section name="RenameInformationPopup">
 	</section>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
+		<item key="updateSimilarElements" value="false"/>
+		<item key="updateSimilarElementsMatchStrategy" value="1"/>
+		<item key="updateTextualMatches" value="false"/>
+		<item key="updateQualifiedNames" value="false"/>
+		<item key="patterns" value="*"/>
+		<item key="renameSubpackages" value="false"/>
+	</section>
+	<section name="NewClassWizardPage">
+		<item key="create_constructor" value="false"/>
+		<item key="create_unimplemented" value="true"/>
+	</section>
+	<section name="NewPackageWizardPage">
+		<item key="create_package_info_java" value="false"/>
 	</section>
 </section>
