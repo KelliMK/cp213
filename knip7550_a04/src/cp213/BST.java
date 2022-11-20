@@ -1,7 +1,6 @@
 package cp213;
 
 import java.util.ArrayList;
-import java.lang.Math;
 
 /**
  * Implements a Binary Search Tree.
@@ -155,6 +154,26 @@ public class BST<T extends Comparable<T>> {
 			height = node.getHeight();
 		}
 		return height;
+	}
+	
+	/**
+	 * Updates the height of each TreeNode in subtree node
+	 *
+	 * @param node The TreeNode that is the root of the subtree to be updated.
+	 */
+	protected void treeHeightUpdate(TreeNode<T> node) {
+		if (node != null) {
+			TreeNode<T> nodeLeft = node.getLeft();
+			TreeNode<T> nodeRight = node.getRight();
+			if (nodeLeft != null) {
+				this.treeHeightUpdate(nodeLeft);
+			}
+			if (nodeRight != null) {
+				this.treeHeightUpdate(nodeRight);
+			}
+			node.updateHeight();
+		}
+		return;
 	}
 
 	/**
