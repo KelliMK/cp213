@@ -18,10 +18,17 @@ public class AVL<T extends Comparable<T>> extends BST<T> {
 	 * @return A balance number.
 	 */
 	private int balance(final TreeNode<T> node) {
-
-		// your code here
-
-		return 0;
+		int leftSide = 0;
+		int rightSide = 0;
+		TreeNode<T> leftNode = node.getLeft();
+		TreeNode<T> rightNode = node.getRight();
+		if (leftNode != null) {
+			leftSide = leftNode.getHeight();
+		}
+		if (rightNode != null) {
+			rightSide = rightNode.getHeight();
+		}
+		return (leftSide - rightSide);
 	}
 
 	/**
@@ -31,10 +38,15 @@ public class AVL<T extends Comparable<T>> extends BST<T> {
 	 * @return The new root of the subtree.
 	 */
 	private TreeNode<T> rotateLeft(final TreeNode<T> node) {
-
-		// your code here
-
-		return null;
+		TreeNode<T> newRoot = node.getRight();
+		TreeNode<T> oldLeft = null;
+		if (newRoot != null) {
+			oldLeft = newRoot.getLeft();
+		}
+		newRoot.setLeft(node);
+		node.setRight(oldLeft);
+		super.treeHeightUpdate(newRoot);
+		return newRoot;
 	}
 
 	/**
@@ -44,10 +56,15 @@ public class AVL<T extends Comparable<T>> extends BST<T> {
 	 * @return The new root of the subtree.
 	 */
 	private TreeNode<T> rotateRight(final TreeNode<T> node) {
-
-		// your code here
-
-		return null;
+		TreeNode<T> newRoot = node.getLeft();
+		TreeNode<T> oldRight = null;
+		if (newRoot != null) {
+			oldRight = newRoot.getRight();
+		}
+		newRoot.setRight(node);
+		node.setLeft(oldRight);
+		super.treeHeightUpdate(newRoot);
+		return newRoot;
 	}
 
 	/**
@@ -59,10 +76,31 @@ public class AVL<T extends Comparable<T>> extends BST<T> {
 	 */
 	@Override
 	protected TreeNode<T> insertAux(TreeNode<T> node, final CountedStore<T> cs) {
-
-		// your code here
-
-		return null;
+		TreeNode<T> newNode = new TreeNode<T>(cs);
+		TreeNode<T> leftNode = node.getLeft();
+		TreeNode<T> rightNode = node.getRight();
+		if (node.getCs().compareTo(cs) == 0) {
+			node.getCs().incrementCount();
+		} else if (node.getCs().compareTo(cs) > 0) {
+			if (leftNode != null) {
+				this.insertAux(leftNode, cs);
+			} else {
+				node.setLeft(newNode);
+				super.treeHeightUpdate(node);
+			}
+		} else if (node.getCs().compareTo(cs) < 0) {
+			if (rightNode != null) {
+				this.insertAux(rightNode, cs);
+			} else {
+				node.setRight(newNode);
+				super.treeHeightUpdate(node);
+			}
+		}
+		return newNode;
+	}
+	
+	protected void rebalance(TreeNode<T> node) {
+		
 	}
 
 	/**
@@ -76,9 +114,26 @@ public class AVL<T extends Comparable<T>> extends BST<T> {
 	 */
 	@Override
 	protected boolean isValidAux(final TreeNode<T> node, TreeNode<T> minNode, TreeNode<T> maxNode) {
-
-		// your code here
-
+		boolean result = true;
+		TreeNode<T> leftNode = node.getLeft();
+		TreeNode<T> rightNode = node.getRight();
+		if (leftNode != null || rightNode != null) {
+			if (leftNode != null) {
+				result = this.isValidAux(leftNode, minNode, maxNode);
+			}
+			if (rightNode != null && result) {
+				result = this.isValidAux(rightNode, minNode, maxNode);
+			}
+		}
+		if (minNode != null && node.getCs().compareTo(minNode.getCs()) < 0) {
+			result = false;
+		}
+		if (maxNode != null && node.getCs().compareTo(maxNode.getCs()) > 0) {
+			result = false;
+		}
+		if (this.balance(node) > 1 || this.balance(node) < (-1)) {
+			result = false;
+		}
 		return false;
 	}
 
