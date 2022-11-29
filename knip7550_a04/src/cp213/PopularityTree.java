@@ -19,10 +19,26 @@ public class PopularityTree<T extends Comparable<T>> extends BST<T> {
 	 * @return The updated node.
 	 */
 	private TreeNode<T> retrieveAux(TreeNode<T> node, final CountedStore<T> key) {
-
-		// your code here
-
-		return null;
+		if (node != null) {
+			final int result = node.getCs().compareTo(key);
+			this.comparisons++;
+			if (result > 0) {
+				node.setLeft(this.retrieveAux(node.getLeft(), key));
+				if (node.getLeft() != null && node.getCs().getCount() < node.getLeft().getCs().getCount()) {
+					node = this.rotateRight(node);
+				}
+			} else if (result < 0) {
+				node.setRight(this.retrieveAux(node.getRight(), key));
+				if (node.getRight() != null && node.getCs().getCount() < node.getRight().getCs().getCount()) {
+					node = this.rotateLeft(node);
+				}
+			} else {
+				node.getCs().incrementCount();
+				key.setCount(node.getCs().getCount());
+			}
+		}
+		node.updateHeight();
+		return node;
 	}
 
 	/**
@@ -32,10 +48,12 @@ public class PopularityTree<T extends Comparable<T>> extends BST<T> {
 	 * @return The new root of the subtree.
 	 */
 	private TreeNode<T> rotateLeft(final TreeNode<T> parent) {
-
-		// your code here
-
-		return null;
+		final TreeNode<T> newNode = parent.getRight();
+		parent.setRight(newNode.getLeft());
+		newNode.setLeft(parent);
+		parent.updateHeight();
+		newNode.updateHeight();
+		return newNode;
 	}
 
 	/**
@@ -45,10 +63,12 @@ public class PopularityTree<T extends Comparable<T>> extends BST<T> {
 	 * @return The new root of the subtree.
 	 */
 	private TreeNode<T> rotateRight(final TreeNode<T> parent) {
-
-		// your code here
-
-		return null;
+		final TreeNode<T> newNode = parent.getLeft();
+		parent.setLeft(newNode.getRight());
+		newNode.setRight(parent);
+		parent.updateHeight();
+		newNode.updateHeight();
+		return newNode;
 	}
 
 	/**
@@ -57,10 +77,24 @@ public class PopularityTree<T extends Comparable<T>> extends BST<T> {
 	 */
 	@Override
 	protected TreeNode<T> insertAux(TreeNode<T> node, final CountedStore<T> data) {
+		if (node == null) {
+			// Base case - add a new node containing the data.
+			node = new TreeNode<T>(data);
+			this.size++;
+		} else {
+			// Compare the node data against the insert data.
+			final int result = node.getCs().compareTo(data);
 
-		// your code here
-
-		return null;
+			if (result > 0) {
+				// General case - check the left subtree.
+				node.setLeft(this.insertAux(node.getLeft(), data));
+			} else if (result < 0) {
+				// General case - check the right subtree.
+				node.setRight(this.insertAux(node.getRight(), data));
+			}
+		}
+		node.updateHeight();
+		return node;
 	}
 
 	/**
@@ -74,10 +108,20 @@ public class PopularityTree<T extends Comparable<T>> extends BST<T> {
 	 */
 	@Override
 	protected boolean isValidAux(final TreeNode<T> node, TreeNode<T> minNode, TreeNode<T> maxNode) {
-
-		// your code here
-
-		return false;
+		boolean result = false;
+		if (node == null) {
+			result = true;
+		} else if (Math.max(this.nodeHeight(node.getLeft()), this.nodeHeight(node.getRight())) != node.getHeight() - 1) {
+			result = false;
+		} else if (node.getLeft() != null && node.getLeft().getCs().compareTo(node.getCs()) >= 0
+				|| node.getRight() != null && node.getRight().getCs().compareTo(node.getCs()) <= 0) {
+			result = false;
+		} else if (node.getLeft() != null && node.getCs().getCount() < node.getLeft().getCs().getCount()
+				|| node.getRight() != null && node.getCs().getCount() < node.getRight().getCs().getCount()) {
+		} else {
+			result = this.isValidAux(node.getLeft(), minNode, maxNode) && this.isValidAux(node.getRight(), minNode, maxNode);
+		}
+		return result;
 	}
 
 	/**
@@ -99,10 +143,13 @@ public class PopularityTree<T extends Comparable<T>> extends BST<T> {
 	 */
 	@Override
 	public CountedStore<T> retrieve(CountedStore<T> key) {
-
-		// your code here
-
-		return null;
+		this.root = this.retrieveAux(this.root, key);
+		if (key.getCount() == 0) {
+			key = null;
+		} else {
+			key = new CountedStore<T>(key);
+		}
+		return key;
 	}
 
 }

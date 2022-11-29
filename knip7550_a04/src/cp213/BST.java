@@ -34,19 +34,18 @@ public class BST<T extends Comparable<T>> {
 	 * @return true if source and target are identical in items and height.
 	 */
 	protected boolean equalsAux(final TreeNode<T> source, final TreeNode<T> target) {
-		// your code here
-		boolean result = (source.getCs().compareTo(target.getCs()) == 0);
-		if (source.getLeft() != null && target.getLeft() != null && result) {
-			result = this.equalsAux(source.getLeft(), target.getLeft());
-		} else if (source.getLeft() == null && target.getLeft() == null && result) {
+		boolean result = false;
+		if (source == null && target == null) {
 			result = true;
-		} else {
-			result = false;
-		}
-		if (source.getRight() != null && target.getRight() != null && result) {
-			result = this.equalsAux(source.getRight(), target.getRight());
-		} else if (source.getRight() == null && target.getRight() == null && result) {
-			result = true;
+		} else if (source != null && target != null) {
+			if (source.getCs().compareTo(target.getCs()) == 0 && source.getHeight() == target.getHeight()) {
+				if (source.getCs().getCount() == target.getCs().getCount()) {
+					result = this.equalsAux(source.getLeft(), target.getLeft());
+					if (result) {
+						result = this.equalsAux(source.getRight(), target.getRight());
+					}
+				}
+			}
 		} else {
 			result = false;
 		}
@@ -80,6 +79,7 @@ public class BST<T extends Comparable<T>> {
 			} else {
 				// Base case - data is already in the tree, increment its count
 				node.getCs().incrementCount();
+				//this.comparisons++;
 			}
 		}
 		node.updateHeight();
@@ -96,47 +96,20 @@ public class BST<T extends Comparable<T>> {
 	 * @return true if the subtree base on node is valid, false otherwise.
 	 */
 	protected boolean isValidAux(final TreeNode<T> node, TreeNode<T> minNode, TreeNode<T> maxNode) {
-		// your code here
-		boolean result = true;
-		boolean parentHeight = this.parentHeightCheck(node);
-		if (node != null) {
-			if (node.getLeft() != null && node.getCs().compareTo(node.getLeft().getCs()) > 0) {
-				result = isValidAux(node.getLeft(), minNode, maxNode);
-			} else if (node.getLeft() != null) {
-				result = false;
-			}
-			if (node.getRight() != null && node.getCs().compareTo(node.getRight().getCs()) < 0 && result) {
-				result = isValidAux(node.getRight(), minNode, maxNode);
-			} else if (node.getLeft() != null) {
-				result = false;
-			}
-		} else {
-			result = false;
-		}
-		if (!parentHeight) {
-			result = false;
-		} else if (minNode != null && node.getCs().compareTo(minNode.getCs()) < 0) {
-			result = false;
-		} else if (maxNode != null && node.getCs().compareTo(maxNode.getCs()) > 0) {
-			result = false;
-		}
-		return result;
-	}
-
-	/**
-	 * Auxiliary method for isValidAux. Determines if a node's height is correct in
-	 * relation to the height of its children.
-	 *
-	 * @param node    The root of the subtree to test for validity.
-	 * @return true if the subtree height is correct, false otherwise
-	 */
-	protected boolean parentHeightCheck(final TreeNode<T> node) {
 		boolean result = false;
-		if (node.getLeft() != null && node.getHeight() == (node.getLeft().getHeight() + 1)) {
+		if (node == null) {
 			result = true;
-		}
-		if (node.getRight() != null && node.getHeight() == (node.getRight().getHeight() + 1)) {
-			result = true;
+		} else if (Math.max(this.nodeHeight(node.getLeft()), this.nodeHeight(node.getRight())) != node.getHeight() -1) {
+			result = false;
+		} else if (node.getLeft() != null && node.getLeft().getCs().compareTo(node.getCs()) >= 0) {
+			result = false;
+		} else if (node.getRight() != null && node.getRight().getCs().compareTo(node.getCs()) <= 0) {
+			result = false;
+		} else {
+			result = this.isValidAux(node.getLeft(), minNode, maxNode);
+			if (result) {
+				result = this.isValidAux(node.getRight(), minNode, maxNode);
+			}
 		}
 		return result;
 	}
@@ -155,26 +128,6 @@ public class BST<T extends Comparable<T>> {
 		}
 		return height;
 	}
-	
-	/**
-	 * Updates the height of each TreeNode in subtree node
-	 *
-	 * @param node The TreeNode that is the root of the subtree to be updated.
-	 */
-	protected void treeHeightUpdate(TreeNode<T> node) {
-		if (node != null) {
-			TreeNode<T> nodeLeft = node.getLeft();
-			TreeNode<T> nodeRight = node.getRight();
-			if (nodeLeft != null) {
-				this.treeHeightUpdate(nodeLeft);
-			}
-			if (nodeRight != null) {
-				this.treeHeightUpdate(nodeRight);
-			}
-			node.updateHeight();
-		}
-		return;
-	}
 
 	/**
 	 * Determines if this BST contains key.
@@ -183,21 +136,7 @@ public class BST<T extends Comparable<T>> {
 	 * @return true if this contains key, false otherwise.
 	 */
 	public boolean contains(final CountedStore<T> key) {
-		// if you're getting output errors in this function switch the comparison
-		// operators in the else if statements
-		boolean result = false;
-		TreeNode<T> current = this.root;
-		while (current != null && !result) {
-			int comparison = current.getCs().compareTo(key);
-			if (comparison == 0) {
-				result = true;
-			} else if (comparison < 0) {
-				current = current.getRight();
-			} else if (comparison > 0) {
-				current = current.getLeft();
-			}
-		}
-		return result;
+		return this.retrieve(key) != null;
 	}
 
 	/**
@@ -339,19 +278,19 @@ public class BST<T extends Comparable<T>> {
 	 * @return data The complete CountedStore that matches key, null otherwise.
 	 */
 	public CountedStore<T> retrieve(final CountedStore<T> key) {
-		// your code here
-		CountedStore<T> result = null;
-		TreeNode<T> current = this.root;
-		while (current != null && result == null) {
-			int comparison = current.getCs().compareTo(key);
-			if (comparison == 0) {
-				result = current.getCs();
-			} else if (comparison < 0) {
-				current = current.getRight();
-			} else if (comparison > 0) {
-				current = current.getLeft();
+		TreeNode<T> node = this.root;
+		CountedStore<T> data = null;
+		while (node != null && data == null) {
+			final int result = node.getCs().compareTo(key);
+			this.comparisons++;
+			if (result > 0) {
+				node = node.getLeft();
+			} else if (result < 0) {
+				node = node.getRight();
+			} else {
+				data = node.getCs();
 			}
 		}
-		return result;
+		return data;
 	}
 }

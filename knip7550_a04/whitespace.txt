@@ -1,13 +1,9 @@
-	private int balance(final TreeNode<T> node) {
-		int leftSide = 0;
-		int rightSide = 0;
-		TreeNode<T> leftNode = node.getLeft();
-		TreeNode<T> rightNode = node.getRight();
-		if (leftNode != null) {
-			leftSide = leftNode.getHeight();
+boolean result = false;
+		if (node.getLeft() != null && node.getHeight() == (node.getLeft().getHeight() + 1)) {
+			result = true;
 		}
-		if (rightNode != null) {
-			rightSide = rightNode.getHeight();
+		if (node.getRight() != null && node.getHeight() == (node.getRight().getHeight() + 1)) {
+			result = true;
 		}
-		return (leftSide - rightSide);
+		return result;
 	}

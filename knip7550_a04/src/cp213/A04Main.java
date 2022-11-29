@@ -24,11 +24,11 @@ public class A04Main {
 	/**
 	 * The letters of the English alphabet in alphabetic order.
 	 */
-	public static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	public static final String ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ '";
 	/**
 	 * The default test file name.
 	 */
-	public static final String FILENAME = "decline.txt";
+	public static final String FILENAME = "forest.txt";
 	/**
 	 * A NumberFormat object.
 	 */
@@ -36,7 +36,7 @@ public class A04Main {
 	/**
 	 * Letters of the English alphabet in popularity order.
 	 */
-	public static final String POPULAR = "ETAOINSHRDLUCMPFYWGBVKJXZQ";
+	public static final String POPULAR = "ETAOINSHRDLUCMPFYWGBVKJXZQ '";
 	/**
 	 * A separator string.
 	 */
@@ -44,7 +44,7 @@ public class A04Main {
 	/**
 	 * Letters of the English alphabet in split by halves order.
 	 */
-	public static final String SPLIT = "MFTCJPWADHKNRUYBEIGLOQSVXZ";
+	public static final String SPLIT = "MFTCJPWADHKNRUYBEIGLOQSVXZ '";
 	/**
 	 * Array of test alphabets.
 	 */
@@ -112,9 +112,18 @@ public class A04Main {
 	 *         tree.
 	 */
 	private static int retrieve(final BST<Character> tree, final Scanner fileScan) {
+		while (fileScan.hasNextLine()) {
+		    final String line = fileScan.nextLine();
 
-		// your code here
+		    for (final Character c : line.toCharArray()) {
 
+			if (Character.isLetter(c)) {
+			    final CountedStore<Character> key = new CountedStore<Character>(Character.toUpperCase(c));
+			    tree.retrieve(key);
+			}
+		    }
+		}
+		fileScan.close();
 		return tree.getComparisons();
 	}
 

@@ -21,6 +21,10 @@
 		<item key="WizardZipFileResourceExportPage1.STORE_CREATE_STRUCTURE_ID" value="true"/>
 		<item key="WizardZipFileResourceExportPage1.STORE_COMPRESS_CONTENTS_ID" value="true"/>
 		<list key="WizardZipFileResourceExportPage1.STORE_DESTINATION_NAMES_ID">
+			<item value="E:\Classes\CP213\knip7550_l08.zip"/>
+			<item value="E:\Classes\CP213\knip7550_a04.zip"/>
+			<item value="E:\Classes\CP213\knip_a04.zip"/>
+			<item value="E:\Classes\CP213\addignment4notfinished.zip"/>
 			<item value="E:\Classes\CP213\GUI_Demos.zip"/>
 			<item value="E:\Classes\CP213\knip7550_l06.zip"/>
 			<item value="C:\Users\Kelli &amp; Rose\Documents\Classes\cp213_Object_Oriented_Programming\knip7550_l06.zip"/>
@@ -29,5 +33,7 @@
 			<item value="C:\Users\Kelli &amp; Rose\Documents\Classes\cp213_Object_Oriented_Programming\knip7550_a01.zip"/>
 			<item value="E:\Classes\CP213\knip7550_a01.zip"/>
 		</list>
+	</section>
+	<section name="ZipFileImportWizard">
 	</section>
 </section>
