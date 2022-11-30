@@ -2,6 +2,7 @@ package cp213;
 
 import java.util.Collection;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.math.BigDecimal;
 
@@ -27,7 +28,7 @@ public class Menu {
 
 	// your code here
 	
-	private ArrayList<MenuItem> items = new ArrayList<MenuItem>();
+	private List<MenuItem> items = new ArrayList<MenuItem>();
 	private static final String itemFormat = "%-12s $%5.2f\n";
 
 	
@@ -41,7 +42,7 @@ public class Menu {
 
 		// your code here
 
-		this.items = (ArrayList<MenuItem>) items;
+		this.items = (List<MenuItem>) items;
 	}
 
 	/**
@@ -57,7 +58,7 @@ public class Menu {
 
 		while (fileScanner.hasNextLine()) {
 			String scanLine = fileScanner.nextLine();
-			String[] lineContent = scanLine.split(" ", 0);
+			String[] lineContent = scanLine.split(" ", 2);
 			String name = lineContent[1];
 			String priceString = lineContent[0];
 			BigDecimal price = new BigDecimal(priceString);

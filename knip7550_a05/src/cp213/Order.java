@@ -7,6 +7,9 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map.Entry;
+
 
 /**
  * Stores a HashMap of MenuItem objects and the quantity of each MenuItem
@@ -28,6 +31,8 @@ public class Order implements Printable {
 
 	// your code here
 
+	
+	
 	/**
 	 * Increments the quantity of a particular MenuItem in an Order with a new
 	 * quantity. If the MenuItem is not in the order, it is added.
