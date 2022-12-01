@@ -1,0 +1,42 @@
+public Order takeOrder() {
+        
+    Scanner input = new Scanner(System.in);
+    System.out.println("Welcome to WLU Foodorama!");
+    printCommands();
+    System.out.println("");
+    String command = "";
+    String howmany = "";
+    Boolean sentinel = false;
+    do {
+        System.out.print("Command: ");
+        command = input.nextLine();
+        try {                
+            if (Integer.parseInt(command) > 0 && Integer.parseInt(command) < menu.size() + 1) {
+                int i = Integer.parseInt(command) - 1;
+                MenuItem item = menu.getItem(i);
+                System.out.print("How many do you want? ");
+                howmany = input.nextLine();                                        
+                int quantity = Integer.parseInt(howmany);
+                if (quantity > 0) {
+                    order.add(item, quantity);
+                }
+            }            
+            else if (Integer.parseInt(command) > menu.size() + 1) {
+                    printCommands();
+            }
+            else if (Integer.parseInt(command) == 0) {
+                    sentinel = true;
+            }
+        }
+        catch (NumberFormatException e) {
+                System.out.println("Not a valid number");
+                            
+        }                        
+    } while (sentinel == false);        
+    input.close();
+    System.out.println(LINE);
+    System.out.println("Receipt");
+    System.out.println(order.toString());
+        
+return order;
+}

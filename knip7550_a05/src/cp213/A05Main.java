@@ -31,6 +31,7 @@ public class A05Main {
 		System.out.println("Assignment 5 Class Tests");
 		testMenuItem();
 		testMenu();
+		testOrder();
 	}
 
 	/**
@@ -120,8 +121,8 @@ public class A05Main {
 		String item = "hot dog";
 		double doublePrice = 1.25;
 		MenuItem menuItem = new MenuItem(item, doublePrice);
-		order.add(menuItem, 1);
-
+		order.add(menuItem, 5);
+		System.out.print(order.toString());
 	}
 
 }

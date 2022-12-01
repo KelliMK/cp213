@@ -1,5 +1,8 @@
 package cp213;
 
+import java.util.Scanner;
+import java.util.ArrayList;
+
 /**
  * Wraps around an Order object to ask for MenuItems and quantities.
  *
@@ -12,6 +15,7 @@ public class Cashier {
 
 	// Attributes
 	private Menu menu = null;
+	private static final String LINE = "-".repeat(40);
 
 	/**
 	 * Constructor.
@@ -43,6 +47,43 @@ public class Cashier {
 
 		// your code here
 
-		return null;
+		printCommands();
+		Order order = new Order();
+		System.out.println();
+		Scanner inputScan = new Scanner(System.in);
+		System.out.print("Command: ");
+		String command = inputScan.nextLine();
+		String amount = "";
+		while (!command.contentEquals("0") && !amount.contentEquals("0")) {
+			try {
+				if (Integer.parseInt(command) > 0 && Integer.parseInt(command) < menu.size() + 1) {
+					int i = Integer.parseInt(command) - 1;
+					MenuItem item = menu.getItem(i);
+					System.out.print("How many do you want? ");
+					amount = inputScan.nextLine();
+					try {
+						int quantity = Integer.parseInt(amount);
+						if (quantity > 0) {
+							order.add(item, quantity);
+						}
+					} catch (NumberFormatException e) {
+						System.out.println("Not a valid number");
+					}
+				} else if (Integer.parseInt(command) != 0) {
+					printCommands();
+				}
+			} catch (NumberFormatException e) {
+				System.out.println("Not a valid number");
+				System.out.println();
+				printCommands();
+			}
+			System.out.print("Command: ");
+			command = inputScan.nextLine();
+		}
+		inputScan.close();
+		System.out.println(LINE);
+		System.out.println("Receipt");
+		System.out.println(order.toString());
+		return order;
 	}
 }

@@ -29,7 +29,7 @@ public class Menu {
 	// your code here
 	
 	private List<MenuItem> items = new ArrayList<MenuItem>();
-	private static final String itemFormat = "%-12s $%5.2f\n";
+	private static final String itemFormat = "%2d) %-12s $%5.2f\n";
 
 	
 	/**
@@ -112,7 +112,7 @@ public class Menu {
 		
 		for (int i = 0; i < this.size(); i++) {
 			String newLine = "";
-			newLine = String.format(itemFormat, this.items.get(i).getName(), this.items.get(i).getPrice());
+			newLine = String.format(itemFormat, (i + 1), this.items.get(i).getName(), this.items.get(i).getPrice());
 			result = result + newLine;
 		}
 		return result;

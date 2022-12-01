@@ -31,7 +31,7 @@ public class Order implements Printable {
 
 	// your code here
 
-	
+	private HashMap<MenuItem, Integer> map = new HashMap<>();
 	
 	/**
 	 * Increments the quantity of a particular MenuItem in an Order with a new
@@ -44,6 +44,13 @@ public class Order implements Printable {
 
 		// your code here
 
+		
+		if (!map.containsKey(item)) {
+			this.map.put(item, quantity);
+		} else {
+			int i = this.map.get(item);
+			this.map.replace(item, i, quantity + i);
+		}
 	}
 
 	/**
@@ -56,7 +63,15 @@ public class Order implements Printable {
 
 		// your code here
 
-		return null;
+		BigDecimal subtotal = BigDecimal.ZERO;
+		for (Entry<MenuItem, Integer> entry : this.map.entrySet()) {
+			MenuItem item = entry.getKey();
+			Integer quantity = entry.getValue();
+			BigDecimal price = item.getPrice();
+			price = price.multiply(BigDecimal.valueOf(quantity));
+			subtotal = subtotal.add(price);
+		}
+		return subtotal;
 	}
 
 	/**
@@ -69,7 +84,10 @@ public class Order implements Printable {
 
 		// your code here
 
-		return null;
+		BigDecimal taxes = BigDecimal.ZERO;
+		taxes = taxes.add(TAX_RATE);
+		taxes = taxes.multiply(this.getSubTotal());
+		return taxes;
 	}
 
 	/**
@@ -81,7 +99,9 @@ public class Order implements Printable {
 
 		// your code here
 
-		return null;
+		BigDecimal total = BigDecimal.ZERO;
+		total = this.getSubTotal().add(this.getTaxes());
+		return total;
 	}
 
 	/*
@@ -120,7 +140,17 @@ public class Order implements Printable {
 
 		// your code here
 
-		return null;
+		String result = "";
+		for (@SuppressWarnings("unused") Entry<MenuItem, Integer> entry : map.entrySet()) {
+			MenuItem item = entry.getKey();
+			String name = item.getName();
+			String quantity = Integer.toString(entry.getValue());
+			BigDecimal price = item.getPrice();
+			BigDecimal itemTotal = item.getPrice().multiply(BigDecimal.valueOf(entry.getValue()));
+			result = result + String.format("%-13s %3s @ $%5.2f = $%6.2f \n", name, quantity, price, itemTotal);
+		}
+		result += String.format("\n%-27s $%6.2f\n%-27s $%6.2f\n%-27s $%6.2f\n", "Subtotal:", this.getSubTotal(), "Taxes:", this.getTaxes(), "Total:", this.getTotal());
+		return result;
 	}
 
 	/**
@@ -135,5 +165,10 @@ public class Order implements Printable {
 
 		// your code here
 
+		if (quantity < 0) {
+			this.map.remove(item);
+		} else {
+			this.map.replace(item, quantity);
+		}
 	}
 }

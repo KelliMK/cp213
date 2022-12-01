@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -29,11 +30,17 @@ public class OrderPanel extends JPanel {
 	private final JLabel subtotalLabel = new JLabel("0");
 	private final JLabel taxLabel = new JLabel("0");
 	private final JLabel totalLabel = new JLabel("0");
+	private final JLabel itemColumnLabel = new JLabel("Item", 0);
+	private final JLabel priceColumnLabel = new JLabel("Price", 0);
+	private final JLabel quantityColumnLabel = new JLabel("Quantity", 0);
 
 	private JLabel nameLabels[] = null;
 	private JLabel priceLabels[] = null;
 	// TextFields for menu item quantities.
 	private JTextField quantityFields[] = null;
+	
+	// GridLayout object
+	private GridLayout gridLayout = null;
 
 	/**
 	 * Displays the menu in a GUI.
@@ -47,6 +54,7 @@ public class OrderPanel extends JPanel {
 		this.quantityFields = new JTextField[this.menu.size()];
 		this.layoutView();
 		this.registerListeners();
+		this.gridLayout = new GridLayout((5 + this.menu.size()), 3);
 	}
 
 	/**
@@ -60,6 +68,7 @@ public class OrderPanel extends JPanel {
 
 			// your code here
 
+			
 		}
 	}
 
@@ -87,7 +96,22 @@ public class OrderPanel extends JPanel {
 	 * Layout the panel.
 	 */
 	private void layoutView() {
-		// your code here
+		for (int i = 0; i < this.menu.size(); i++) {
+			MenuItem thisItem = menu.getItem(i);
+			nameLabels[i].setText(thisItem.getName());
+			nameLabels[i].setHorizontalTextPosition(0);
+			priceLabels[i].setText(thisItem.getPrice().toString());
+			priceLabels[i].setHorizontalTextPosition(2);
+		}
+		this.gridLayout.addLayoutComponent("itemColumnLabelTop", itemColumnLabel);
+		this.gridLayout.addLayoutComponent("priceColumnLabelTop", priceColumnLabel);
+		this.gridLayout.addLayoutComponent("quantityColumnLabelTop", quantityColumnLabel);
+		for (int i = 0; i < this.menu.size(); i++) {
+			this.gridLayout.addLayoutComponent(("nameLabel" + Integer.toString(i)), this.nameLabels[i]);
+			this.gridLayout.addLayoutComponent(("priceLabel" + Integer.toString(i)), this.priceLabels[i]);
+			this.gridLayout.addLayoutComponent(("quantityField" + Integer.toString(i)), this.quantityFields[i]);
+		}
+		
 	}
 
 	/**
