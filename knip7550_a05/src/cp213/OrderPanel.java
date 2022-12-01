@@ -33,6 +33,9 @@ public class OrderPanel extends JPanel {
 	private final JLabel itemColumnLabel = new JLabel("Item", 0);
 	private final JLabel priceColumnLabel = new JLabel("Price", 0);
 	private final JLabel quantityColumnLabel = new JLabel("Quantity", 0);
+	private final JLabel subtotalTextLabel = new JLabel("Subtotal: ", 0);
+	private final JLabel taxTextLabel = new JLabel("Tax: ", 0);
+	private final JLabel totalTextLabel = new JLabel("Total: ", 0);
 
 	private JLabel nameLabels[] = null;
 	private JLabel priceLabels[] = null;
@@ -40,7 +43,7 @@ public class OrderPanel extends JPanel {
 	private JTextField quantityFields[] = null;
 	
 	// GridLayout object
-	private GridLayout gridLayout = null;
+	private GridLayout gridLayout = new GridLayout();
 
 	/**
 	 * Displays the menu in a GUI.
@@ -80,8 +83,7 @@ public class OrderPanel extends JPanel {
 
 		@Override
 		public void focusGained(FocusEvent e) {
-			// TODO Auto-generated method stub
-
+			
 		}
 
 		@Override
@@ -90,6 +92,8 @@ public class OrderPanel extends JPanel {
 
 		}
 		// your code here
+		
+		
 	}
 
 	/**
@@ -111,7 +115,18 @@ public class OrderPanel extends JPanel {
 			this.gridLayout.addLayoutComponent(("priceLabel" + Integer.toString(i)), this.priceLabels[i]);
 			this.gridLayout.addLayoutComponent(("quantityField" + Integer.toString(i)), this.quantityFields[i]);
 		}
-		
+		this.gridLayout.addLayoutComponent("subtotalText", subtotalTextLabel);
+		this.gridLayout.addLayoutComponent(null, null);
+		this.gridLayout.addLayoutComponent("subtotalLabel", this.subtotalLabel);
+		this.gridLayout.addLayoutComponent("taxText", taxTextLabel);
+		this.gridLayout.addLayoutComponent(null, null);
+		this.gridLayout.addLayoutComponent("taxLabel", this.taxLabel);
+		this.gridLayout.addLayoutComponent("totalText", totalTextLabel);
+		this.gridLayout.addLayoutComponent(null, null);
+		this.gridLayout.addLayoutComponent("totalLabel", this.totalLabel);
+		this.gridLayout.addLayoutComponent(null, null);
+		this.gridLayout.addLayoutComponent("printButton", printButton);
+		this.gridLayout.addLayoutComponent(null, null);
 	}
 
 	/**
