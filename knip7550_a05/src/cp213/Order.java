@@ -7,6 +7,7 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -71,6 +72,7 @@ public class Order implements Printable {
 			price = price.multiply(BigDecimal.valueOf(quantity));
 			subtotal = subtotal.add(price);
 		}
+		subtotal = subtotal.setScale(2, RoundingMode.HALF_UP);
 		return subtotal;
 	}
 
@@ -87,6 +89,7 @@ public class Order implements Printable {
 		BigDecimal taxes = BigDecimal.ZERO;
 		taxes = taxes.add(TAX_RATE);
 		taxes = taxes.multiply(this.getSubTotal());
+		taxes = taxes.setScale(2, RoundingMode.HALF_UP);
 		return taxes;
 	}
 
@@ -101,6 +104,7 @@ public class Order implements Printable {
 
 		BigDecimal total = BigDecimal.ZERO;
 		total = this.getSubTotal().add(this.getTaxes());
+		total = total.setScale(2, RoundingMode.HALF_UP);
 		return total;
 	}
 

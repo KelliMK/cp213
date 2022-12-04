@@ -1,42 +1,140 @@
-public Order takeOrder() {
-        
-    Scanner input = new Scanner(System.in);
-    System.out.println("Welcome to WLU Foodorama!");
-    printCommands();
-    System.out.println("");
-    String command = "";
-    String howmany = "";
-    Boolean sentinel = false;
-    do {
-        System.out.print("Command: ");
-        command = input.nextLine();
-        try {                
-            if (Integer.parseInt(command) > 0 && Integer.parseInt(command) < menu.size() + 1) {
-                int i = Integer.parseInt(command) - 1;
-                MenuItem item = menu.getItem(i);
-                System.out.print("How many do you want? ");
-                howmany = input.nextLine();                                        
-                int quantity = Integer.parseInt(howmany);
-                if (quantity > 0) {
-                    order.add(item, quantity);
-                }
-            }            
-            else if (Integer.parseInt(command) > menu.size() + 1) {
-                    printCommands();
-            }
-            else if (Integer.parseInt(command) == 0) {
-                    sentinel = true;
-            }
+package cp213;
+
+import java.awt.GridLayout;
+import java.awt.PrintJob;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+/**
+ * The GUI for the Order class.
+ *
+ * @author your name here
+ * @author Abdul-Rahman Mawlood-Yunis
+ * @author David Brown
+ * @version 2022-11-20
+ */
+@SuppressWarnings("serial")
+public class OrderPanel extends JPanel {
+
+    // Attributes
+    private Menu menu = null; // Menu attached to panel.
+    private final Order order = new Order(); // Order to be printed by panel.
+    private GridLayout gridLayout = new GridLayout();
+    // GUI Widgets
+    private final JButton printButton = new JButton("Print");
+    private final JLabel subtotalLabel = new JLabel("0");
+    private final JLabel taxLabel = new JLabel("0");
+    private final JLabel totalLabel = new JLabel("0");
+    private final JLabel itemColumnLabel = new JLabel("Item", 0);
+    private final JLabel priceColumnLabel = new JLabel("Price", 0);
+    private final JLabel quantityColumnLabel = new JLabel("Quantity", 0);
+    private final JLabel subtotalTextLabel = new JLabel("Subtotal: ", 0);
+    private final JLabel taxTextLabel = new JLabel("Tax: ", 0);
+    private final JLabel totalTextLabel = new JLabel("Total: ", 0);
+
+    private JLabel nameLabels[] = null;
+    private JLabel priceLabels[] = null;
+    // TextFields for menu item quantities.
+    private JTextField quantityFields[] = null;
+
+    /**
+     * Displays the menu in a GUI.
+     *
+     * @param menu The menu to display.
+     */
+    public OrderPanel(final Menu menu) {
+    this.menu = menu;
+    this.nameLabels = new JLabel[this.menu.size()];
+    this.priceLabels = new JLabel[this.menu.size()];
+    this.quantityFields = new JTextField[this.menu.size()];
+    this.layoutView();
+    this.registerListeners();
+    this.gridLayout = new GridLayout((5 + this.menu.size()), 3);
+    }
+
+    /**
+     * Implements an ActionListener for the 'Print' button. Prints the current
+     * contents of the Order to a system printer or PDF.
+     */
+    private class PrintListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(final ActionEvent e) {
+    
+            
+    
         }
-        catch (NumberFormatException e) {
-                System.out.println("Not a valid number");
-                            
-        }                        
-    } while (sentinel == false);        
-    input.close();
-    System.out.println(LINE);
-    System.out.println("Receipt");
-    System.out.println(order.toString());
-        
-return order;
+    }
+
+    /**
+     * Implements a FocusListener on a quantityField. Requires appropriate
+     * FocusListener methods.
+     */
+    private class QuantityListener implements FocusListener {
+
+        @Override
+        public void focusGained(FocusEvent e) {
+            // TODO Auto-generated method stub
+            
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            // TODO Auto-generated method stub
+            
+        }
+        // your code here
+    }
+    /**
+     * Layout the panel.
+     */
+    private void layoutView() {
+        for (int i = 0; i < this.menu.size(); i++) {
+            MenuItem thisItem = menu.getItem(i);
+            this.nameLabels[i] = new JLabel(thisItem.getName());
+            add(this.nameLabels[i]);
+            this.nameLabels[i].setHorizontalTextPosition(0);
+            this.priceLabels[i] = new JLabel(thisItem.getPrice().toString());
+            add(this.priceLabels[i]);
+            this.priceLabels[i].setHorizontalTextPosition(2);
+        }
+        this.gridLayout.addLayoutComponent("itemColumnLabelTop", itemColumnLabel);
+        this.gridLayout.addLayoutComponent("priceColumnLabelTop", priceColumnLabel);
+        this.gridLayout.addLayoutComponent("quantityColumnLabelTop", quantityColumnLabel);
+        for (int i = 0; i < this.menu.size(); i++) {
+            this.gridLayout.addLayoutComponent(("nameLabel" + Integer.toString(i)), this.nameLabels[i]);
+            this.gridLayout.addLayoutComponent(("priceLabel" + Integer.toString(i)), this.priceLabels[i]);
+            this.gridLayout.addLayoutComponent(("quantityField" + Integer.toString(i)), this.quantityFields[i]);
+        }
+        this.gridLayout.addLayoutComponent("subtotalText", subtotalTextLabel);
+        this.gridLayout.addLayoutComponent(null, null);
+        this.gridLayout.addLayoutComponent("subtotalLabel", this.subtotalLabel);
+        this.gridLayout.addLayoutComponent("taxText", taxTextLabel);
+        this.gridLayout.addLayoutComponent(null, null);
+        this.gridLayout.addLayoutComponent("taxLabel", this.taxLabel);
+        this.gridLayout.addLayoutComponent("totalText", totalTextLabel);
+        this.gridLayout.addLayoutComponent(null, null);
+        this.gridLayout.addLayoutComponent("totalLabel", this.totalLabel);
+        this.gridLayout.addLayoutComponent(null, null);
+        this.gridLayout.addLayoutComponent("printButton", printButton);
+        this.gridLayout.addLayoutComponent(null, null);
+    }
+
+    /**
+     * Register the widget listeners.
+     */
+    private void registerListeners() {
+        // Register the PrinterListener with the print button.
+        this.printButton.addActionListener(new PrintListener());
+
+        // your code here
+    }
+
 }
