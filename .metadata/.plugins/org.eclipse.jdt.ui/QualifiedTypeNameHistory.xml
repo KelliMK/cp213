@@ -15,4 +15,10 @@
     <fullyQualifiedTypeName name="javax.print.attribute.HashPrintRequestAttributeSet"/>
     <fullyQualifiedTypeName name="javax.print.attribute.standard.DialogTypeSelection"/>
     <fullyQualifiedTypeName name="java.awt.print.PrinterJob"/>
+    <fullyQualifiedTypeName name="java.awt.Font"/>
+    <fullyQualifiedTypeName name="java.awt.FontMetrics"/>
+    <fullyQualifiedTypeName name="java.text.DateFormat"/>
+    <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+    <fullyQualifiedTypeName name="java.io.FileWriter"/>
+    <fullyQualifiedTypeName name="java.awt.print.PrinterException"/>
 </qualifiedTypeNameHistroy>

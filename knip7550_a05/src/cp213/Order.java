@@ -32,7 +32,7 @@ public class Order implements Printable {
 
 	// your code here
 
-	private HashMap<MenuItem, Integer> map = new HashMap<>();
+	protected HashMap<MenuItem, Integer> map = new HashMap<>();
 	
 	/**
 	 * Increments the quantity of a particular MenuItem in an Order with a new

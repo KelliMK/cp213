@@ -39,8 +39,8 @@
 		<item key="nonavbar" value="false"/>
 		<item key="openinbrowser" value="false"/>
 		<item key="source" value="18"/>
-		<item key="antpath" value="E:\Classes\CP213\knip7550_l08\javadoc.xml"/>
-		<item key="destdir" value="E:\Classes\CP213\knip7550_l08\doc"/>
+		<item key="antpath" value="E:\Classes\CP213\knip7550_a05\javadoc.xml"/>
+		<item key="destdir" value="E:\Classes\CP213\knip7550_a05\doc"/>
 		<section name="projects">
 			<section name="GUI_experiment">
 				<item key="href" value=""/>
@@ -56,6 +56,11 @@
 				<item key="href" value=""/>
 				<item key="destdir" value="E:\Classes\CP213\knip7550_a03\doc"/>
 				<item key="antpath" value="E:\Classes\CP213\knip7550_a03\javadoc.xml"/>
+			</section>
+			<section name="knip7550_a05">
+				<item key="href" value=""/>
+				<item key="destdir" value="E:\Classes\CP213\knip7550_a05\doc"/>
+				<item key="antpath" value="E:\Classes\CP213\knip7550_a05\javadoc.xml"/>
 			</section>
 			<section name="knip7550_l02">
 				<item key="href" value=""/>

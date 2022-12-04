@@ -1,16 +1,17 @@
 package cp213;
 
 import java.awt.GridLayout;
-import java.awt.PrintJob;
+import java.awt.print.PrinterException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.print.PrinterJob;
 
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.attribute.standard.DialogTypeSelection;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -42,6 +43,7 @@ public class OrderPanel extends JPanel {
     private final JLabel subtotalTextLabel = new JLabel(" Subtotal: ", JLabel.LEFT);
     private final JLabel taxTextLabel = new JLabel(" Tax: ", JLabel.LEFT);
     private final JLabel totalTextLabel = new JLabel(" Total: ", JLabel.LEFT);
+    private JLabel dummyLabel = new JLabel("", JLabel.LEFT);
 
     private JLabel nameLabels[] = null;
     private JLabel priceLabels[] = null;
@@ -68,62 +70,76 @@ public class OrderPanel extends JPanel {
 	 * contents of the Order to a system printer or PDF.
 	 */
 	private class PrintListener implements ActionListener {
-		// note to self that this is not a method but a class
-		
-		@Override
+
+        @Override
         public void actionPerformed(final ActionEvent e) {
-            final PrintRequestAttributeSet attributes = new HashPrintRequestAttributeSet();
-            attributes.add(DialogTypeSelection.NATIVE);
-            PrinterJob printJob = PrinterJob.getPrinterJob();
-            printJob.printDialog(attributes);
-    
+            
+            PrinterJob pj = PrinterJob.getPrinterJob();
+            pj.setPrintable(order);
+            String datePattern = "yyyy-MM-dd-HH-mm-ss";
+            DateFormat df = new SimpleDateFormat(datePattern);
+            datePattern = df.toString();
+            try {
+            	pj.setJobName("Receipt " + df);
+                pj.printDialog();
+            	pj.print();
+            }
+            catch (PrinterException ex) {
+                ex.printStackTrace();
+            }        
         }
-	}
+    }
 
 	/**
 	 * Implements a FocusListener on a quantityField. Requires appropriate
 	 * FocusListener methods.
 	 */
 	private class QuantityListener implements FocusListener {
-		// note to self that this is not a method but a class
-		@SuppressWarnings("unused")
-		private int i = 0;
-		@Override
-		public void focusGained(FocusEvent e) {
-			// TODO Auto-generated method stub
-			System.out.println(e.getSource().toString());
-			
-			
-			/*System.out.println(e.getSource().toString());
-			JTextField thisQuantity = (JTextField) e.getComponent();
-			OrderPanel yeah = (OrderPanel) thisQuantity.getParent();
-			for (int j = 0; j < yeah.quantityFields.length; j++) {
-				if (thisQuantity.equals(yeah.quantityFields[j])) {
-					this.i = j;
-				}
-			}*/
-		}
 
-		@Override
-		public void focusLost(FocusEvent e) {
-			// TODO Auto-generated method stub
-			JTextField thisQuantity = (JTextField) e.getComponent();
-			/*try {
-				String userInput = thisQuantity.getText();
-				int addedNumber = Integer.parseInt(userInput);
-				OrderPanel yeah = (OrderPanel) thisQuantity.getParent();
-				MenuItem fuck = yeah.menu.getItem(i);
-				yeah.order.update(fuck, addedNumber);
-				thisQuantity.setText("0");
-				i = 0;
-			} catch (NumberFormatException ee) {
-				thisQuantity.setText("0");
-				i = 0;
-			}*/
-		}
-		// your code here
-		
-	}
+        private int i = 0;
+        
+        @Override
+        public void focusGained(FocusEvent e) {
+            // TODO Auto-generated method stub
+            JTextField thisQuantity = (JTextField) e.getComponent();            
+            OrderPanel thisOrder = (OrderPanel) thisQuantity.getParent();
+            for (int j = 0; j < thisOrder.quantityFields.length; j++) {
+                if (thisQuantity.equals(thisOrder.quantityFields[j])) {
+                    this.i = j;
+                }
+            }            
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            // TODO Auto-generated method stub
+        	JTextField thisQuantity = (JTextField) e.getComponent();
+            try {
+                String input = thisQuantity.getText();
+                int addition = Integer.parseInt(input);
+                OrderPanel thisOrder = (OrderPanel) thisQuantity.getParent();
+                MenuItem thisItem = thisOrder.menu.getItem(i);
+                
+                if (thisOrder.order.map.get(thisItem) == null) {
+                    thisOrder.order.add(thisItem, addition);
+                } else {
+                    thisOrder.order.update(thisItem, addition);
+                }
+                
+                thisQuantity.setText(Integer.toString(addition));                
+                subtotalLabel.setText("$" + thisOrder.order.getSubTotal().toString() + " ");
+                taxLabel.setText("$" + thisOrder.order.getTaxes().toString() + " ");
+                totalLabel.setText("$" + thisOrder.order.getTotal().toString() + " ");        
+                i = 0;                
+                
+            } catch (NumberFormatException ee) {
+                thisQuantity.setText("0");
+                System.out.println("Non-Numeric input in text field " + i);
+                i = 0;
+            }
+        }
+              
+    }
 
 	/**
 	 * Layout the panel.
